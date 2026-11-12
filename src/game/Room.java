@@ -10,12 +10,14 @@ public class Room implements Serializable {
 	private String name;
 	private Room[] exits;
 	private HashMap<String, Item> items;
+	private HashMap<String,NPC> npcs;
 	private boolean locked;
 
 	public Room(String n) {
 		name = n;
 		exits = new Room[6];
 		items = new HashMap<String, Item>();
+		npcs = new HashMap<String, NPC>();
 		locked = false;
 		rooms.add(this);
 	}
@@ -70,8 +72,19 @@ public class Room implements Serializable {
 		}
 		return String.join(", ", items.keySet());
 	}
-
+	public void addNPC(NPC npc) {
+		npcs.put(npc.getName().toLowerCase(), npc);
+	}
+	public NPC getNPC(String name) {
+		return npcs.get(name.toLowerCase());
+	}
+	public String getNPCNames() {
+		if (npcs.isEmpty()) {
+			return "none";
+		}
+		return String.join(",",npcs.keySet());
+	}
 	public String toString() {
-		return name + "\n" + getDescription() + "\nItems here: " + getItemNames();
+		return name + "\n" + getDescription() + "\nItems here: " + getItemNames() + "\nCharacters here: " + getNPCNames();
 	}
 }

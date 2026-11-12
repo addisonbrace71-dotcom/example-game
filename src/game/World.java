@@ -27,6 +27,7 @@ public class World {
         
 
         garage.setExit(1,kitchen);      // west
+        livingRoom.addNPC(new Milo());
         
 		return livingRoom;
 		
